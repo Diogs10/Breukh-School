@@ -21,9 +21,9 @@ class AnneeScolaireController extends Controller
     public function store(Request $request)
     {
         //
-        // $request->validate([
-        //     'libelle' => ['required', 'unique'],
-        // ]);
+        $request->validate([
+            'libelle' => 'required|unique:annee_scolaires,libelle_annee',
+        ]);
         $annee = new AnneeScolaire();
         $annee->libelle_annee = $request->libelle;
         $annee->save();

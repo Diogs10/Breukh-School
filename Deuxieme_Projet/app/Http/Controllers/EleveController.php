@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnneeScolaire;
+use App\Models\Classe;
 use App\Models\Eleve;
 use App\Models\Inscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class EleveController extends Controller
 {
@@ -23,15 +25,21 @@ class EleveController extends Controller
     public function store(Request $request)
     {
         //
-        // $request->validate([
-        //     'nom' => 'required',
-        //     'prenom' => 'required',
-        //     'date' => 'nullable',
-        //     'dateNaissance' => 'nullable',
-        //     'sexe' => 'required',
-        //     'profil' => 'required'
-        // ]);
+        $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'date' => 'nullable',
+            'dateNaissance' => 'nullable',
+            'sexe' => 'required',
+            'profil' => 'required',
+            'date' => 'sometimes|date|before:today - 5years'
+        ]);
+        
+        // $num= Eleve::where("etat_eleve",0)->first();
         $eleve = new Eleve();
+        if ($request->profil == 0) {
+            $eleve->numero = NULL;
+        }
         $eleve->nom = $request->nom;
         $eleve->prenom = $request->prenom;
         $eleve->date_de_naissance = $request->date;

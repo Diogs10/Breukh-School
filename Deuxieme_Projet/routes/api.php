@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnneeScolaireController;
+use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\NiveauController;
 use Illuminate\Http\Request;
@@ -29,3 +30,5 @@ Route::get("/niveaux/{id}",[NiveauController::class,"find"]);
 Route::apiResource("/eleves",EleveController::class)->only(['store']);
 
 Route::apiResource("/annee",AnneeScolaireController::class)->only(['store']);
+
+Route::get("classe/{id}/eleves",[ClasseController::class,"eleveById"]);

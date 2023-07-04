@@ -63,4 +63,12 @@ class ClasseController extends Controller
     {
         //
     }
+
+    public function eleveById($Classe)
+    {
+        $eleves = Classe::findOrFail($Classe)
+        ->inscription()
+        ->join('eleves','eleves.id', '=','inscriptions.eleve_id')->get();
+        return response()->json($eleves);
+    }
 }
