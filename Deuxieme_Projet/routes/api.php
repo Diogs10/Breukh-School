@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnneeScolaireController;
 use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\DisciplineController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\NiveauController;
 use Illuminate\Http\Request;
@@ -32,3 +33,7 @@ Route::apiResource("/eleves",EleveController::class)->only(['store']);
 Route::apiResource("/annee",AnneeScolaireController::class)->only(['store']);
 
 Route::get("classe/{id}/eleves",[ClasseController::class,"eleveById"]);
+
+Route::apiResource("/discipline",DisciplineController::class)->only(['index','store']);
+
+Route::put("/eleves/sortie",[EleveController::class,"modifeEtat"]);

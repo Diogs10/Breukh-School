@@ -25,30 +25,43 @@ class Eleve extends Model
     public function __construct()
     {
         $this->numero = $this->num();
+        // $this->numero = 1;
     }
 
     public function num(){
-        $numm = DB::table('eleves')->where("etat_eleve",0)->orderBy("numero",'asc')->get();
-        $num = DB::table('eleves')->orderBy("numero",'desc')->where("etat_eleve",1)->first();
-        $num = $num->numero + 1;
-        if (count($numm) == 0) {
-            return $num;
+        // $numm = DB::table('eleves')->where("etat_eleve",0)->orderBy("numero",'asc')->get();
+        // $num = DB::table('eleves')->orderBy("numero",'desc')->where("etat_eleve",1)->first();
+        // $num = $num->numero + 1;
+        // if (count($numm) == 0) {
+        //     return $num;
+        // }
+        // else {
+        //     $m= DB::table('eleves')->where("etat_eleve",1)->get();
+        //     foreach ($numm as $value) {
+
+        //         $compteur = 0;
+        //         foreach ($m as $val) {
+        //             if ($value->numero == $val->numero) {
+        //                 $compteur++;
+        //             }
+        //         }
+        //         if ($compteur == 0) {
+        //             return $num = $value->numero;
+        //         }
+        //     }
+        // }
+        // return $num;
+        $num = DB::table('eleves')->where("etat_eleve",1)->where("profil",1)->orderBy("numero",'asc')->get();
+        if (count($num) == 0) {
+            return $i = 1;
         }
         else {
-            $m= DB::table('eleves')->where("etat_eleve",1)->get();
-            foreach ($numm as $value) {
-
-                $compteur = 0;
-                foreach ($m as $val) {
-                    if ($value->numero == $val->numero) {
-                        $compteur++;
-                    }
-                }
-                if ($compteur == 0) {
-                    return $num = $value->numero;
+            for ($i = 0; $i < count($num); $i++) { 
+                if (($i+1) != ($num[$i]->numero)) {
+                    return $i+1;
                 }
             }
+            return count($num)+1;
         }
-        return $num;
     }
 }

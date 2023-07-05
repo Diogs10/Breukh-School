@@ -32,7 +32,8 @@ class EleveController extends Controller
             'dateNaissance' => 'nullable',
             'sexe' => 'required',
             'profil' => 'required',
-            'date' => 'sometimes|date|before:today - 5years'
+            'date' => 'sometimes|date|before:today - 5years',
+            'numero' => 'nullable'
         ]);
         
         // $num= Eleve::where("etat_eleve",0)->first();
@@ -80,5 +81,11 @@ class EleveController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function modifeEtat(Request $request){
+        $eleve = $request->ids;
+        Eleve::whereIn("id",$eleve)->update(['etat_eleve' => 0]);
+        return response()->json(Eleve::whereIn("id",$eleve)->get());
     }
 }

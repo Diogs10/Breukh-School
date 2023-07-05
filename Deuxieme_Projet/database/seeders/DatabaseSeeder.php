@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             NiveauSeeder::class,
-            ClasseSeeder::class
+            ClasseSeeder::class,
+            DisciplineSeeder::class,
+            EvaluationSeeder::class
         ]);
     }
 }
